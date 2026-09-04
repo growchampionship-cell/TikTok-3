@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TikTok Exchange UI</title>
+  <title>TikTok Custom Coin Exchange</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,224 +13,166 @@
     }
 
     body {
-      background-color: #f2f2f4;
+      background-color: #7f7f7f;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 20px;
     }
 
-    .container {
-      background-color: #ffffff;
-      width: 100%;
-      max-width: 380px;
-      border-radius: 24px;
-      padding: 20px 16px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-      display: flex;
-      flex-direction: column;
+    /* Bottom Sheet Container */
+    .sheet-card {
+      background: #ffffff;
+      width: 360px;
+      border-radius: 16px 16px 0 0;
+      padding: 16px 20px 20px;
+      box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+      position: relative;
     }
 
-    /* Header */
-    .header {
+    /* Modal Header */
+    .sheet-header {
       display: flex;
+      justify-content: center;
       align-items: center;
       position: relative;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
-    .back-btn {
-      background: none;
-      border: none;
-      font-size: 20px;
-      cursor: pointer;
-      color: #121212;
-      position: absolute;
-      left: 0;
-    }
-
-    .header-title {
-      width: 100%;
-      text-align: center;
+    .sheet-title {
       font-size: 16px;
       font-weight: 600;
       color: #121212;
     }
 
-    /* Balance Section */
-    .balance-section {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .balance-label {
-      font-size: 12px;
-      color: #8a8a8e;
-      margin-bottom: 6px;
-    }
-
-    .balance-amount {
-      font-size: 30px;
-      font-weight: 800;
-      color: #121212;
-      letter-spacing: -0.5px;
-      margin-bottom: 4px;
-    }
-
-    .balance-subtext {
-      font-size: 11px;
-      color: #8a8a8e;
-      margin-bottom: 6px;
-    }
-
-    .balance-subtext span {
-      color: #ffaa00;
-    }
-
-    .available-text {
-      font-size: 12px;
-      color: #8a8a8e;
-    }
-
-    /* Section Headers */
-    .section-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: #121212;
-      margin-bottom: 10px;
-    }
-
-    /* Input Field & Profile Card */
-    .input-box {
-      width: 100%;
-      background-color: #f7f7f8;
-      border-radius: 12px;
-      padding: 12px 14px;
+    .close-btn {
+      position: absolute;
+      right: 0;
+      background: none;
       border: none;
-      font-size: 14px;
-      color: #121212;
-      outline: none;
+      font-size: 18px;
+      color: #8a8a8e;
+      cursor: pointer;
+    }
+
+    /* Dropdown Header */
+    .dropdown-label {
+      font-size: 12px;
+      color: #8a8a8e;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .dropdown-label::after {
+      content: "▾";
+      font-size: 10px;
+    }
+
+    /* Coin Input Display Area */
+    .amount-display-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 12px;
     }
 
-    .profile-card {
-      background-color: #f7f7f8;
-      border-radius: 12px;
-      padding: 12px;
+    .coin-amount-group {
       display: flex;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 24px;
+      gap: 8px;
     }
 
-    .avatar {
-      width: 42px;
-      height: 42px;
-      background-color: #e0e0e0;
+    .coin-badge {
+      width: 22px;
+      height: 22px;
+      background-color: #ffaa00;
       border-radius: 50%;
-    }
-
-    .profile-info {
       display: flex;
-      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+      font-weight: bold;
+      font-size: 12px;
     }
 
-    .profile-name {
-      font-size: 14px;
-      font-weight: 600;
+    .coin-number {
+      font-size: 22px;
+      font-weight: 700;
       color: #121212;
     }
 
-    .profile-handle {
-      font-size: 11px;
+    .btn-all {
+      background: none;
+      border: none;
       color: #8a8a8e;
+      font-size: 13px;
+      cursor: pointer;
     }
 
-    .profile-stats {
-      font-size: 10px;
+    /* Conversion Rates Subtext */
+    .conversion-rates {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
       color: #8a8a8e;
-      margin-top: 2px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
     }
 
-    /* Option Grid */
-    .grid-container {
+    /* Custom Numeric Keypad Grid */
+    .keypad-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      margin-bottom: 12px;
+      margin-bottom: 20px;
     }
 
-    .option-card {
-      border: 1px solid #eaeaea;
-      background-color: #ffffff;
-      border-radius: 12px;
-      padding: 14px 8px;
+    .key-btn {
+      background-color: #f7f7f8;
+      border: none;
+      border-radius: 8px;
+      height: 48px;
+      font-size: 18px;
+      font-weight: 500;
+      color: #121212;
       display: flex;
-      flex-direction: column;
+      justify-content: center;
       align-items: center;
       cursor: pointer;
     }
 
-    .option-card.selected {
-      border: 1.5px solid #fe2c55;
-      background-color: #fffbfe;
+    .key-btn:active {
+      background-color: #ececec;
     }
 
-    .coin-val {
-      font-size: 13px;
-      font-weight: 600;
-      color: #121212;
+    /* Footer / Total Row */
+    .total-summary-row {
       display: flex;
+      justify-content: space-between;
       align-items: center;
-      gap: 4px;
-      margin-bottom: 4px;
+      margin-bottom: 16px;
     }
 
-    .coin-val::before {
-      content: '🪙';
-      font-size: 10px;
-    }
-
-    .price-val {
-      font-size: 11px;
-      color: #8a8a8e;
-    }
-
-    .custom-input {
-      width: 100%;
-      background-color: #f7f7f8;
-      border-radius: 12px;
-      padding: 14px;
-      border: none;
-      font-size: 13px;
-      color: #8a8a8e;
-      outline: none;
-      margin-bottom: 20px;
-    }
-
-    /* Policy Text */
-    .policy-text {
-      font-size: 11px;
-      color: #8a8a8e;
-      line-height: 1.4;
-      margin-bottom: 20px;
-      text-align: left;
-    }
-
-    .policy-text a {
+    .total-label {
+      font-size: 14px;
       color: #121212;
-      font-weight: 600;
-      text-decoration: none;
     }
 
-    /* Submit Button */
-    .btn-exchange {
+    .total-amount {
+      font-size: 18px;
+      font-weight: 700;
+      color: #121212;
+    }
+
+    /* Action Submit Button */
+    .btn-submit {
       width: 100%;
       background-color: #fe2c55;
       color: #ffffff;
       border: none;
-      border-radius: 12px;
+      border-radius: 8px;
       padding: 14px 0;
       font-size: 15px;
       font-weight: 600;
@@ -240,62 +182,49 @@
 </head>
 <body>
 
-  <div class="container">
-    <!-- Header Navigation -->
-    <div class="header">
-      <button class="back-btn">‹</button>
-      <div class="header-title">Exchange</div>
+  <div class="sheet-card">
+    <div class="sheet-header">
+      <span class="sheet-title">Custom</span>
+      <button class="close-btn">✕</button>
     </div>
 
-    <!-- TikTok Coins Balance Display -->
-    <div class="balance-section">
-      <div class="balance-label">TikTok Coins Balance</div>
-      <div class="balance-amount">$684,856,737.29</div>
-      <div class="balance-subtext">≈ $684,856,737.29 (<span>🪙 56,390,012,824</span>)</div>
-      <div class="available-text">Available balance to exchange the Coins</div>
+    <div class="dropdown-label">Number of Coins</div>
+
+    <div class="amount-display-row">
+      <div class="coin-amount-group">
+        <div class="coin-badge">d</div>
+        <span class="coin-number">12,000,000</span>
+      </div>
+      <button class="btn-all">All</button>
     </div>
 
-    <!-- Username Input -->
-    <div class="section-label">TikTok username</div>
-    <input type="text" class="input-box" value="@ kiktuha">
-
-    <!-- Profile Details Card -->
-    <div class="profile-card">
-      <div class="avatar"></div>
-      <div class="profile-info">
-        <span class="profile-name">kaktuha</span>
-        <span class="profile-handle">@kaktuha</span>
-        <span class="profile-stats">-- followers &nbsp;-- following</span>
-      </div>
+    <div class="conversion-rates">
+      <span>€134400.00</span>
+      <span>=</span>
+      <span>$145200.00</span>
     </div>
 
-    <!-- Exchange Tier Selection -->
-    <div class="section-label">Exchange earnings for Coins</div>
-    <div class="grid-container">
-      <div class="option-card">
-        <span class="coin-val">250</span>
-        <span class="price-val">$3.03</span>
-      </div>
-      <div class="option-card">
-        <span class="coin-val">500</span>
-        <span class="price-val">$6.07</span>
-      </div>
-      <div class="option-card selected">
-        <span class="coin-val">15,000</span>
-        <span class="price-val">$182.04</span>
-      </div>
+    <div class="keypad-grid">
+      <button class="key-btn">1</button>
+      <button class="key-btn">2</button>
+      <button class="key-btn">3</button>
+      <button class="key-btn">4</button>
+      <button class="key-btn">5</button>
+      <button class="key-btn">6</button>
+      <button class="key-btn">7</button>
+      <button class="key-btn">8</button>
+      <button class="key-btn">9</button>
+      <button class="key-btn" style="color: #8a8a8e;">⌫</button>
+      <button class="key-btn">000</button>
+      <button class="key-btn">0</button>
     </div>
 
-    <!-- Custom Input Field -->
-    <input type="text" class="custom-input" placeholder="Enter a custom number or amount" readonly>
+    <div class="total-summary-row">
+      <span class="total-label">Total</span>
+      <span class="total-amount">$145200.00</span>
+    </div>
 
-    <!-- Disclaimer Footer -->
-    <p class="policy-text">
-      Coins obtained through this exchange are subject to our <a href="#">Virtual Items Policy</a>. Since you are accepting your Rewards in the form of Coins, this exchange is non-refundable.
-    </p>
-
-    <!-- Red Submit Button -->
-    <button class="btn-exchange">Exchange</button>
+    <button class="btn-submit">Exchange</button>
   </div>
 
 </body>
