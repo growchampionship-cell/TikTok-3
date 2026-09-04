@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TikTok Exchange Blueprint</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f4f4f6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 400px;
+      background-color: #ffffff;
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    /* Header */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+    }
+
+    .back-btn {
+      font-size: 20px;
+      cursor: pointer;
+      color: #121212;
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #121212;
+    }
+
+    /* Balance Section */
+    .balance-section {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .sub-label {
+      font-size: 12px;
+      color: #8a8b91;
+      margin-bottom: 4px;
+    }
+
+    .balance-amount {
+      font-size: 30px;
+      font-weight: 700;
+      color: #121212;
+      margin-bottom: 6px;
+    }
+
+    .balance-detail {
+      font-size: 11px;
+      color: #8a8b91;
+    }
+
+    /* Input Section */
+    .section-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: #121212;
+      margin-bottom: 12px;
+    }
+
+    .input-box {
+      width: 100%;
+      background-color: #f1f1f3;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 14px;
+      outline: none;
+      margin-bottom: 16px;
+    }
+
+    /* User Profile Card */
+    .profile-card {
+      display: flex;
+      align-items: center;
+      background-color: #f8f8f9;
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 24px;
+    }
+
+    .avatar-placeholder {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background-color: #e1e1e6;
+      margin-right: 12px;
+    }
+
+    .profile-info .name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #121212;
+    }
+
+    .profile-info .username {
+      font-size: 12px;
+      color: #8a8b91;
+    }
+
+    /* Exchange Options */
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .option-card {
+      border: 1px solid #e1e1e6;
+      border-radius: 12px;
+      padding: 14px 8px;
+      text-align: center;
+      cursor: pointer;
+      background-color: #ffffff;
+      transition: all 0.2s ease;
+    }
+
+    .option-card.active {
+      border-color: #fe2c55;
+      background-color: #ffeff2;
+    }
+
+    .coin-count {
+      font-size: 13px;
+      font-weight: 600;
+      color: #121212;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin-bottom: 4px;
+    }
+
+    .coin-icon {
+      width: 12px;
+      height: 12px;
+      background-color: #ffaa00;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .coin-price {
+      font-size: 11px;
+      color: #8a8b91;
+    }
+
+    /* Footer / Terms */
+    .terms-text {
+      font-size: 11px;
+      color: #8a8b91;
+      line-height: 1.4;
+      margin-top: 16px;
+      margin-bottom: 20px;
+    }
+
+    .terms-text a {
+      color: #121212;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* CTA Button */
+    .submit-btn {
+      width: 100%;
+      background-color: #fe2c55;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      padding: 14px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <!-- Header -->
+    <div class="header">
+      <span class="back-btn">&#10094;</span>
+      <span class="title">Exchange</span>
+      <span style="width: 20px;"></span>
+    </div>
+
+    <!-- Balance -->
+    <div class="balance-section">
+      <div class="sub-label">TikTok Coins Balance</div>
+      <div class="balance-amount">$684,856,737.29</div>
+      <div class="balance-detail">Available balance to exchange the Coins</div>
+    </div>
+
+    <!-- TikTok Username Input -->
+    <div class="section-title">TikTok username</div>
+    <input type="text" class="input-box" value="@ kiktuha">
+
+    <!-- Profile Info -->
+    <div class="profile-card">
+      <div class="avatar-placeholder"></div>
+      <div class="profile-info">
+        <div class="name">kiktuha</div>
+        <div class="username">@kiktuha</div>
+      </div>
+    </div>
+
+    <!-- Exchange Earnings -->
+    <div class="section-title">Exchange earnings for Coins</div>
+    <div class="options-grid">
+      <div class="option-card">
+        <div class="coin-count"><span class="coin-icon"></span> 250</div>
+        <div class="coin-price">$3.03</div>
+      </div>
+      <div class="option-card">
+        <div class="coin-count"><span class="coin-icon"></span> 500</div>
+        <div class="coin-price">$6.07</div>
+      </div>
+      <div class="option-card active">
+        <div class="coin-count"><span class="coin-icon"></span> 15,000</div>
+        <div class="coin-price">$182.04</div>
+      </div>
+    </div>
+
+    <input type="text" class="input-box" placeholder="Enter a custom number or amount">
+
+    <!-- Terms -->
+    <p class="terms-text">
+      Coins obtained through this exchange are subject to our <a href="#">Virtual Items Policy</a>. Since you are accepting your Rewards in the form of Coins, this exchange is...
+    </p>
+
+    <!-- Exchange Button -->
+    <button class="submit-btn">Exchange</button>
+  </div>
+
+</body>
+</html>
