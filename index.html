@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TikTok Exchange Confirmation</title>
+  <title>TikTok Exchange UI</title>
   <style>
     * {
       box-sizing: border-box;
@@ -13,205 +13,289 @@
     }
 
     body {
-      background-color: #f4f4f6;
+      background-color: #f2f2f4;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      padding: 20px;
     }
 
-    /* Card Wrapper */
-    .popup-card {
-      background: #ffffff;
-      width: 360px;
-      border-radius: 20px;
-      padding: 24px 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+    .container {
+      background-color: #ffffff;
+      width: 100%;
+      max-width: 380px;
+      border-radius: 24px;
+      padding: 20px 16px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
       display: flex;
       flex-direction: column;
-      align-items: center;
     }
 
-    /* Top Success Circle Icon */
-    .success-icon-wrapper {
-      width: 56px;
-      height: 56px;
-      background-color: #25d366;
-      border-radius: 50%;
+    /* Header */
+    .header {
       display: flex;
-      justify-content: center;
       align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .success-icon-wrapper svg {
-      width: 32px;
-      height: 32px;
-      fill: none;
-      stroke: #ffffff;
-      stroke-width: 3;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    /* Header Texts */
-    .title {
-      font-size: 20px;
-      font-weight: 700;
-      color: #121212;
-      margin-bottom: 8px;
-    }
-
-    .subtitle {
-      font-size: 13px;
-      color: #757575;
+      position: relative;
       margin-bottom: 24px;
     }
 
-    .coins-highlight {
+    .back-btn {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
       color: #121212;
-      font-weight: 600;
+      position: absolute;
+      left: 0;
     }
 
-    /* Details Rows */
-    .details-group {
+    .header-title {
       width: 100%;
-      margin-bottom: 20px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      color: #121212;
     }
 
-    .detail-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 10px 0;
-      font-size: 14px;
+    /* Balance Section */
+    .balance-section {
+      text-align: center;
+      margin-bottom: 24px;
     }
 
-    .detail-label {
+    .balance-label {
+      font-size: 12px;
+      color: #8a8a8e;
+      margin-bottom: 6px;
+    }
+
+    .balance-amount {
+      font-size: 30px;
+      font-weight: 800;
+      color: #121212;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+    }
+
+    .balance-subtext {
+      font-size: 11px;
+      color: #8a8a8e;
+      margin-bottom: 6px;
+    }
+
+    .balance-subtext span {
+      color: #ffaa00;
+    }
+
+    .available-text {
+      font-size: 12px;
       color: #8a8a8e;
     }
 
-    .detail-value {
+    /* Section Headers */
+    .section-label {
+      font-size: 13px;
+      font-weight: 600;
       color: #121212;
-      font-weight: 500;
+      margin-bottom: 10px;
     }
 
-    /* Gifter Level Promotion Box */
-    .promo-box {
+    /* Input Field & Profile Card */
+    .input-box {
       width: 100%;
-      background-color: #f8f8f9;
+      background-color: #f7f7f8;
+      border-radius: 12px;
+      padding: 12px 14px;
+      border: none;
+      font-size: 14px;
+      color: #121212;
+      outline: none;
+      margin-bottom: 12px;
+    }
+
+    .profile-card {
+      background-color: #f7f7f8;
       border-radius: 12px;
       padding: 12px;
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       gap: 12px;
       margin-bottom: 24px;
     }
 
-    .tiktok-badge {
-      width: 36px;
-      height: 36px;
-      background-color: #000000;
-      border-radius: 8px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-shrink: 0;
+    .avatar {
+      width: 42px;
+      height: 42px;
+      background-color: #e0e0e0;
+      border-radius: 50%;
     }
 
-    .tiktok-badge svg {
-      width: 20px;
-      height: 20px;
-      fill: #ffffff;
-    }
-
-    .promo-content {
+    .profile-info {
       display: flex;
       flex-direction: column;
     }
 
-    .promo-title {
+    .profile-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #121212;
+    }
+
+    .profile-handle {
+      font-size: 11px;
+      color: #8a8a8e;
+    }
+
+    .profile-stats {
+      font-size: 10px;
+      color: #8a8a8e;
+      margin-top: 2px;
+    }
+
+    /* Option Grid */
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .option-card {
+      border: 1px solid #eaeaea;
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 14px 8px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .option-card.selected {
+      border: 1.5px solid #fe2c55;
+      background-color: #fffbfe;
+    }
+
+    .coin-val {
       font-size: 13px;
       font-weight: 600;
       color: #121212;
-      margin-bottom: 2px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      margin-bottom: 4px;
     }
 
-    .promo-desc {
+    .coin-val::before {
+      content: '🪙';
+      font-size: 10px;
+    }
+
+    .price-val {
       font-size: 11px;
       color: #8a8a8e;
-      line-height: 1.3;
     }
 
-    /* Action Button */
-    .btn-action {
+    .custom-input {
       width: 100%;
-      background-color: #25d366;
+      background-color: #f7f7f8;
+      border-radius: 12px;
+      padding: 14px;
+      border: none;
+      font-size: 13px;
+      color: #8a8a8e;
+      outline: none;
+      margin-bottom: 20px;
+    }
+
+    /* Policy Text */
+    .policy-text {
+      font-size: 11px;
+      color: #8a8a8e;
+      line-height: 1.4;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .policy-text a {
+      color: #121212;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    /* Submit Button */
+    .btn-exchange {
+      width: 100%;
+      background-color: #fe2c55;
       color: #ffffff;
       border: none;
-      border-radius: 25px;
+      border-radius: 12px;
       padding: 14px 0;
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      transition: background-color 0.2s ease;
-    }
-
-    .btn-action:hover {
-      background-color: #20bd5a;
     }
   </style>
 </head>
 <body>
 
-  <div class="popup-card">
-    <!-- Success Icon -->
-    <div class="success-icon-wrapper">
-      <svg viewBox="0 0 24 24">
-        <polyline points="20 6 9 17 4 12"></polyline>
-      </svg>
+  <div class="container">
+    <!-- Header Navigation -->
+    <div class="header">
+      <button class="back-btn">‹</button>
+      <div class="header-title">Exchange</div>
     </div>
 
-    <!-- Title Header -->
-    <h2 class="title">Exchange Completed!</h2>
-    <p class="subtitle">You exchanged for <span class="coins-highlight">🪙 15,000 Coins</span></p>
+    <!-- TikTok Coins Balance Display -->
+    <div class="balance-section">
+      <div class="balance-label">TikTok Coins Balance</div>
+      <div class="balance-amount">$684,856,737.29</div>
+      <div class="balance-subtext">≈ $684,856,737.29 (<span>🪙 56,390,012,824</span>)</div>
+      <div class="available-text">Available balance to exchange the Coins</div>
+    </div>
 
-    <!-- Details Table -->
-    <div class="details-group">
-      <div class="detail-row">
-        <span class="detail-label">Recipient</span>
-        <span class="detail-value">@kaktuha</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Coins Exchanged</span>
-        <span class="detail-value">15,000 Coins</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Deducted Amount</span>
-        <span class="detail-value">$182.04</span>
-      </div>
-      <div class="detail-row">
-        <span class="detail-label">Time</span>
-        <span class="detail-value">9/4/2026, 8:11:34 AM</span>
+    <!-- Username Input -->
+    <div class="section-label">TikTok username</div>
+    <input type="text" class="input-box" value="@ kiktuha">
+
+    <!-- Profile Details Card -->
+    <div class="profile-card">
+      <div class="avatar"></div>
+      <div class="profile-info">
+        <span class="profile-name">kaktuha</span>
+        <span class="profile-handle">@kaktuha</span>
+        <span class="profile-stats">-- followers &nbsp;-- following</span>
       </div>
     </div>
 
-    <!-- TikTok Gifter Level Box -->
-    <div class="promo-box">
-      <div class="tiktok-badge">
-        <!-- SVG TikTok Logo -->
-        <svg viewBox="0 0 448 512">
-          <path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25V349.38A162.55 162.55 0 1 1 185 188.31V258.2a93.61 93.61 0 1 0 58.33 87.21V0h69.3a140.39 140.39 0 0 0 3.1 29.58 141.42 141.42 0 0 0 81.33 103.58 140.84 140.84 0 0 0 50.94 14.18z"/>
-        </svg>
+    <!-- Exchange Tier Selection -->
+    <div class="section-label">Exchange earnings for Coins</div>
+    <div class="grid-container">
+      <div class="option-card">
+        <span class="coin-val">250</span>
+        <span class="price-val">$3.03</span>
       </div>
-      <div class="promo-content">
-        <span class="promo-title">Start gifter level</span>
-        <span class="promo-desc">Send your first Gift to begin your gifter journey and unlock more rewards as you level up</span>
+      <div class="option-card">
+        <span class="coin-val">500</span>
+        <span class="price-val">$6.07</span>
+      </div>
+      <div class="option-card selected">
+        <span class="coin-val">15,000</span>
+        <span class="price-val">$182.04</span>
       </div>
     </div>
 
-    <!-- Back Button -->
-    <button class="btn-action">← Go back</button>
+    <!-- Custom Input Field -->
+    <input type="text" class="custom-input" placeholder="Enter a custom number or amount" readonly>
+
+    <!-- Disclaimer Footer -->
+    <p class="policy-text">
+      Coins obtained through this exchange are subject to our <a href="#">Virtual Items Policy</a>. Since you are accepting your Rewards in the form of Coins, this exchange is non-refundable.
+    </p>
+
+    <!-- Red Submit Button -->
+    <button class="btn-exchange">Exchange</button>
   </div>
 
 </body>
