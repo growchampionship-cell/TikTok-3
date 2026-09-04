@@ -43,6 +43,17 @@
       color: #121212;
     }
 
+    .title-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .tiktok-logo {
+      width: 20px;
+      height: 20px;
+    }
+
     .title {
       font-size: 18px;
       font-weight: 600;
@@ -102,11 +113,11 @@
       margin-bottom: 24px;
     }
 
-    .avatar-placeholder {
+    .avatar {
       width: 44px;
       height: 44px;
       border-radius: 50%;
-      background-color: #e1e1e6;
+      object-fit: cover;
       margin-right: 12px;
     }
 
@@ -200,10 +211,15 @@
 <body>
 
   <div class="app-container">
-    <!-- Header -->
+    <!-- Header with TikTok Logo -->
     <div class="header">
       <span class="back-btn">&#10094;</span>
-      <span class="title">Exchange</span>
+      <div class="title-group">
+        <svg class="tiktok-logo" viewBox="0 0 448 512" fill="currentColor">
+          <path d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V257.8a92.9,92.9,0,1,0,40.23,76.51V0h68.65a138.33,138.33,0,0,0,13.1,43.29,141.52,141.52,0,0,0,45.24,47.88,141.24,141.24,0,0,0,53.25,20.46,139.73,139.73,0,0,0,42.53,1.31Z"/>
+        </svg>
+        <span class="title">Exchange</span>
+      </div>
       <span style="width: 20px;"></span>
     </div>
 
@@ -218,9 +234,9 @@
     <div class="section-title">TikTok username</div>
     <input type="text" class="input-box" value="@ kiktuha">
 
-    <!-- Profile Info -->
+    <!-- Profile Info with Avatar -->
     <div class="profile-card">
-      <div class="avatar-placeholder"></div>
+      <img class="avatar" src="https://via.placeholder.com/150/e1e1e6/8a8b91?text=User" alt="Profile Picture">
       <div class="profile-info">
         <div class="name">kiktuha</div>
         <div class="username">@kiktuha</div>
