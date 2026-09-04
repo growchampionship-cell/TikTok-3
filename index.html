@@ -1,476 +1,218 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <title>TikTok LIVE Rewards · Blueprint</title>
-  <!-- Font Awesome 5 (free icons) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TikTok Exchange Confirmation</title>
   <style>
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     }
 
     body {
-      background: #1a1a1a;
+      background-color: #f4f4f6;
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
-      padding: 16px;
     }
 
-    /* main card – blueprint style */
-    .phone-frame {
-      max-width: 400px;
-      width: 100%;
-      background: #0f0f0f;
-      border-radius: 44px;
-      padding: 24px 20px 32px;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.06);
-      color: #ffffff;
-      position: relative;
-      transition: all 0.2s;
-    }
-
-    /* ----- header ----- */
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 18px;
-    }
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .header-left i {
-      font-size: 20px;
-      color: #fff;
-      opacity: 0.8;
-      cursor: default;
-    }
-    .header-title {
-      font-weight: 600;
-      font-size: 18px;
-      letter-spacing: -0.2px;
-      color: #fff;
-    }
-    .header-right i {
-      font-size: 20px;
-      color: #fff;
-      opacity: 0.7;
-      cursor: default;
-    }
-
-    /* ----- success banner ----- */
-    .success-banner {
-      background: rgba(0, 230, 118, 0.12);
-      border: 1px solid rgba(0, 230, 118, 0.25);
-      border-radius: 60px;
-      padding: 10px 16px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 28px;
-      backdrop-filter: blur(2px);
-    }
-    .success-banner i {
-      color: #00e676;
-      font-size: 18px;
-    }
-    .success-banner span {
-      font-size: 15px;
-      font-weight: 500;
-      color: #e0e0e0;
-      letter-spacing: -0.2px;
-    }
-
-    /* ----- balance card ----- */
-    .balance-card {
-      background: #1a1a1a;
-      border-radius: 28px;
-      padding: 18px 18px 14px;
-      margin-bottom: 28px;
-      border: 1px solid #2a2a2a;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03);
-    }
-    .balance-label {
-      font-size: 13px;
-      font-weight: 500;
-      color: #a0a0a0;
-      letter-spacing: 0.3px;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-    .balance-amount {
-      font-size: 34px;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      color: #ffffff;
-      line-height: 1.1;
-      margin-bottom: 6px;
-    }
-    .balance-sub {
-      font-size: 14px;
-      font-weight: 400;
-      color: #b0b0b0;
-      border-bottom: 1px dashed #2e2e2e;
-      padding-bottom: 10px;
-      margin-bottom: 6px;
-    }
-    .balance-sub span {
-      color: #d0d0d0;
-    }
-    .balance-note {
-      font-size: 13px;
-      color: #888;
-      font-weight: 400;
-      letter-spacing: 0.2px;
-    }
-
-    /* ----- username search ----- */
-    .search-section {
-      margin-bottom: 28px;
-    }
-    .search-label {
-      font-size: 13px;
-      font-weight: 500;
-      color: #a0a0a0;
-      text-transform: uppercase;
-      letter-spacing: 0.3px;
-      margin-bottom: 6px;
-    }
-    .search-row {
-      display: flex;
-      align-items: center;
-      background: #1e1e1e;
-      border-radius: 40px;
-      padding: 6px 16px 6px 18px;
-      border: 1px solid #2c2c2c;
-    }
-    .search-row i {
-      color: #6a6a6a;
-      font-size: 14px;
-      margin-right: 10px;
-    }
-    .search-row input {
-      background: transparent;
-      border: none;
-      padding: 12px 0;
-      font-size: 16px;
-      color: #fff;
-      flex: 1;
-      outline: none;
-      font-weight: 400;
-    }
-    .search-row input::placeholder {
-      color: #666;
-      font-weight: 400;
-    }
-    .search-status {
-      font-size: 13px;
-      color: #00e676;
-      background: rgba(0, 230, 118, 0.08);
-      padding: 4px 12px;
-      border-radius: 30px;
-      white-space: nowrap;
-      border: 1px solid rgba(0, 230, 118, 0.15);
-    }
-
-    /* ----- earnings placeholder (Fychanne) ----- */
-    .earnings-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #161616;
-      border-radius: 30px;
-      padding: 12px 18px;
-      margin-bottom: 28px;
-      border: 1px solid #282828;
-    }
-    .earnings-label {
-      font-size: 14px;
-      font-weight: 500;
-      color: #ccc;
-    }
-    .earnings-label i {
-      color: #ff0050;
-      margin-right: 6px;
-    }
-    .earnings-value {
-      font-size: 15px;
-      font-weight: 600;
-      color: #fff;
-      background: #242424;
-      padding: 4px 14px;
-      border-radius: 40px;
-      letter-spacing: 0.2px;
-    }
-
-    /* ----- numeric keypad (exactly like picture) ----- */
-    .keypad {
-      margin-top: 8px;
-      margin-bottom: 14px;
+    /* Card Wrapper */
+    .popup-card {
+      background: #ffffff;
+      width: 360px;
+      border-radius: 20px;
+      padding: 24px 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
       display: flex;
       flex-direction: column;
-      gap: 8px;
-    }
-    .keypad-row {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-    }
-    .key {
-      background: #1c1c1c;
-      border: 1px solid #2b2b2b;
-      border-radius: 60px;
-      width: 64px;
-      height: 56px;
-      display: flex;
       align-items: center;
+    }
+
+    /* Top Success Circle Icon */
+    .success-icon-wrapper {
+      width: 56px;
+      height: 56px;
+      background-color: #25d366;
+      border-radius: 50%;
+      display: flex;
       justify-content: center;
-      font-size: 22px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .success-icon-wrapper svg {
+      width: 32px;
+      height: 32px;
+      fill: none;
+      stroke: #ffffff;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Header Texts */
+    .title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #121212;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #757575;
+      margin-bottom: 24px;
+    }
+
+    .coins-highlight {
+      color: #121212;
+      font-weight: 600;
+    }
+
+    /* Details Rows */
+    .details-group {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      font-size: 14px;
+    }
+
+    .detail-label {
+      color: #8a8a8e;
+    }
+
+    .detail-value {
+      color: #121212;
       font-weight: 500;
-      color: #f0f0f0;
-      box-shadow: 0 2px 0 #0a0a0a;
-      transition: all 0.05s;
-      cursor: default;
-      user-select: none;
-    }
-    .key:active {
-      background: #2a2a2a;
-      transform: scale(0.96);
-    }
-    .key-special {
-      background: #1c1c1c;
-      border: 1px solid #2b2b2b;
-      border-radius: 60px;
-      width: 64px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      font-weight: 400;
-      color: #b0b0b0;
-      box-shadow: 0 2px 0 #0a0a0a;
-      cursor: default;
-    }
-    .key-zero {
-      width: 140px;
-      background: #1c1c1c;
-      border: 1px solid #2b2b2b;
-      border-radius: 60px;
-      height: 56px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      font-weight: 500;
-      color: #f0f0f0;
-      box-shadow: 0 2px 0 #0a0a0a;
-      cursor: default;
     }
 
-    /* bottom row: ?123 and , */
-    .keypad-bottom-row {
+    /* Gifter Level Promotion Box */
+    .promo-box {
+      width: 100%;
+      background-color: #f8f8f9;
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .tiktok-badge {
+      width: 36px;
+      height: 36px;
+      background-color: #000000;
+      border-radius: 8px;
       display: flex;
       justify-content: center;
-      gap: 10px;
-      margin-top: 4px;
-    }
-    .key-bottom {
-      background: #1c1c1c;
-      border: 1px solid #2b2b2b;
-      border-radius: 60px;
-      width: 64px;
-      height: 48px;
-      display: flex;
       align-items: center;
-      justify-content: center;
-      font-size: 18px;
-      font-weight: 400;
-      color: #b0b0b0;
-      box-shadow: 0 2px 0 #0a0a0a;
-      cursor: default;
+      flex-shrink: 0;
     }
-    .key-comma {
-      background: #1c1c1c;
-      border: 1px solid #2b2b2b;
-      border-radius: 60px;
-      width: 64px;
-      height: 48px;
+
+    .tiktok-badge svg {
+      width: 20px;
+      height: 20px;
+      fill: #ffffff;
+    }
+
+    .promo-content {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 22px;
-      font-weight: 400;
-      color: #b0b0b0;
-      box-shadow: 0 2px 0 #0a0a0a;
-      cursor: default;
+      flex-direction: column;
     }
 
-    /* tiny TikTok style bottom nav (optional) */
-    .bottom-nav {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 28px;
-      padding-top: 12px;
-      border-top: 1px solid #262626;
-    }
-    .nav-item {
-      color: #666;
-      font-size: 22px;
-      transition: 0.1s;
-      cursor: default;
-    }
-    .nav-item.active {
-      color: #ff0050;
-    }
-    .nav-item i {
-      filter: drop-shadow(0 0 2px rgba(255,0,80,0.1));
+    .promo-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: #121212;
+      margin-bottom: 2px;
     }
 
-    /* small extra detail: "TikTok LIVE Rewards" badge */
-    .brand-micro {
-      text-align: center;
-      margin-top: 10px;
-      font-size: 10px;
-      color: #3a3a3a;
-      letter-spacing: 1px;
+    .promo-desc {
+      font-size: 11px;
+      color: #8a8a8e;
+      line-height: 1.3;
     }
 
-    /* responsive */
-    @media (max-width: 420px) {
-      .phone-frame {
-        padding: 20px 16px 28px;
-        border-radius: 32px;
-      }
-      .key {
-        width: 54px;
-        height: 50px;
-        font-size: 20px;
-      }
-      .key-special {
-        width: 54px;
-        height: 50px;
-        font-size: 16px;
-      }
-      .key-zero {
-        width: 120px;
-        height: 50px;
-        font-size: 20px;
-      }
-      .key-bottom {
-        width: 54px;
-        height: 44px;
-        font-size: 16px;
-      }
-      .key-comma {
-        width: 54px;
-        height: 44px;
-        font-size: 20px;
-      }
-      .balance-amount {
-        font-size: 28px;
-      }
+    /* Action Button */
+    .btn-action {
+      width: 100%;
+      background-color: #25d366;
+      color: #ffffff;
+      border: none;
+      border-radius: 25px;
+      padding: 14px 0;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-action:hover {
+      background-color: #20bd5a;
     }
   </style>
 </head>
 <body>
-  <div class="phone-frame">
 
-    <!-- header -->
-    <div class="header">
-      <div class="header-left">
-        <i class="fas fa-chevron-left"></i>
-        <span class="header-title">TikTok LIVE Rewards</span>
+  <div class="popup-card">
+    <!-- Success Icon -->
+    <div class="success-icon-wrapper">
+      <svg viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+    </div>
+
+    <!-- Title Header -->
+    <h2 class="title">Exchange Completed!</h2>
+    <p class="subtitle">You exchanged for <span class="coins-highlight">🪙 15,000 Coins</span></p>
+
+    <!-- Details Table -->
+    <div class="details-group">
+      <div class="detail-row">
+        <span class="detail-label">Recipient</span>
+        <span class="detail-value">@kaktuha</span>
       </div>
-      <div class="header-right">
-        <i class="fas fa-ellipsis-h"></i>
+      <div class="detail-row">
+        <span class="detail-label">Coins Exchanged</span>
+        <span class="detail-value">15,000 Coins</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Deducted Amount</span>
+        <span class="detail-value">$182.04</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Time</span>
+        <span class="detail-value">9/4/2026, 8:11:34 AM</span>
       </div>
     </div>
 
-    <!-- success message -->
-    <div class="success-banner">
-      <i class="fas fa-check-circle"></i>
-      <span>Successfully sent coins to recipient</span>
-    </div>
-
-    <!-- balance -->
-    <div class="balance-card">
-      <div class="balance-label">TikTok Coins Balance</div>
-      <div class="balance-amount">$684,856,555.25</div>
-      <div class="balance-sub">
-        = $684,856,555.25 <span>(₮ 56,389,997.824)</span>
+    <!-- TikTok Gifter Level Box -->
+    <div class="promo-box">
+      <div class="tiktok-badge">
+        <!-- SVG TikTok Logo -->
+        <svg viewBox="0 0 448 512">
+          <path d="M448 209.91a210.06 210.06 0 0 1-122.77-39.25V349.38A162.55 162.55 0 1 1 185 188.31V258.2a93.61 93.61 0 1 0 58.33 87.21V0h69.3a140.39 140.39 0 0 0 3.1 29.58 141.42 141.42 0 0 0 81.33 103.58 140.84 140.84 0 0 0 50.94 14.18z"/>
+        </svg>
       </div>
-      <div class="balance-note">Available balance to exchange the Coins</div>
-    </div>
-
-    <!-- username search -->
-    <div class="search-section">
-      <div class="search-label">TikTok username</div>
-      <div class="search-row">
-        <i class="fas fa-search"></i>
-        <input type="text" placeholder="@ al" value="@ al" />
-        <span class="search-status">Searching @al...</span>
+      <div class="promo-content">
+        <span class="promo-title">Start gifter level</span>
+        <span class="promo-desc">Send your first Gift to begin your gifter journey and unlock more rewards as you level up</span>
       </div>
     </div>
 
-    <!-- earnings for coins (Fychanne) -->
-    <div class="earnings-row">
-      <span class="earnings-label"><i class="fas fa-coins"></i> Fychanne earnings for Coins</span>
-      <span class="earnings-value">₮ 1,240.50</span>
-    </div>
-
-    <!-- keypad – exactly as described: 1 2 3 / 4 5 6 / 7 8 9 / 0 + ?123 , -->
-    <div class="keypad">
-      <!-- row 1: 1 2 3 -->
-      <div class="keypad-row">
-        <div class="key">1</div>
-        <div class="key">2</div>
-        <div class="key">3</div>
-      </div>
-      <!-- row 2: 4 5 6 -->
-      <div class="keypad-row">
-        <div class="key">4</div>
-        <div class="key">5</div>
-        <div class="key">6</div>
-      </div>
-      <!-- row 3: 7 8 9 -->
-      <div class="keypad-row">
-        <div class="key">7</div>
-        <div class="key">8</div>
-        <div class="key">9</div>
-      </div>
-      <!-- row 4: 0 (wide) + ?123 and , on bottom -->
-      <div class="keypad-row">
-        <div class="key-zero">0</div>
-      </div>
-      <!-- bottom special row: ?123 ,   (exactly like picture) -->
-      <div class="keypad-bottom-row">
-        <div class="key-bottom">?123</div>
-        <div class="key-comma">,</div>
-      </div>
-    </div>
-
-    <!-- tiny bottom nav (TikTok style) -->
-    <div class="bottom-nav">
-      <div class="nav-item active"><i class="fas fa-home"></i></div>
-      <div class="nav-item"><i class="fas fa-compass"></i></div>
-      <div class="nav-item"><i class="fas fa-inbox"></i></div>
-      <div class="nav-item"><i class="fas fa-user"></i></div>
-    </div>
-
-    <!-- micro branding (like "Royalfamily.com · Follow" but subtle) -->
-    <div class="brand-micro">
-      <span>Royalfamily.com  ·  + Follow</span>
-    </div>
+    <!-- Back Button -->
+    <button class="btn-action">← Go back</button>
   </div>
+
 </body>
 </html>
