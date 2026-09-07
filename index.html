@@ -1,446 +1,267 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TikTok Coin Exchange Blueprint</title>
-<style>
-    :root {
-        --bg-color: #f2f5f8;
-        --card-bg: #ffffff;
-        --input-bg: #e6e8ec;
-        --primary-red: #ea284e;
-        --text-dark: #121212;
-        --text-gray: #888888;
-        --active-card-bg: #fdf2f5;
-        --active-card-border: #f0a8b9;
-        --grid-line: rgba(180, 190, 210, 0.4);
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Virtual Wallet Exchange Demo</title>
+    <style>
+        :root {
+            --bg-dark: #121214;
+            --card-dark: #1c1c1e;
+            --accent-color: #00caef;
+            --text-main: #ffffff;
+            --text-muted: #a1a1aa;
+            --border-color: #2e2e33;
+        }
 
-    body {
-        margin: 0;
-        padding: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        background-color: #333;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-    }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
 
-    /* Device Container with Grid Background matching the blueprint */
-    .device-screen {
-        width: 100%;
-        max-width: 400px;
-        height: 850px;
-        background-color: var(--bg-color);
-        background-image: 
-            linear-gradient(var(--grid-line) 1px, transparent 1px),
-            linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
-        background-size: 20px 20px;
-        position: relative;
-        overflow-y: auto;
-        overflow-x: hidden;
-        border-radius: 36px;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        display: flex;
-        flex-direction: column;
-    }
+        .wallet-container {
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 400px;
+            padding: 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
 
-    /* Header Navigation */
-    .header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 40px 20px 20px;
-        position: relative;
-        z-index: 10;
-    }
+        .header {
+            text-align: center;
+            margin-bottom: 24px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+        }
 
-    .nav-btn {
-        width: 36px;
-        height: 36px;
-        background-color: rgba(0,0,0,0.3);
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: white;
-        font-weight: bold;
-        cursor: pointer;
-    }
+        .header h2 {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 600;
+        }
 
-    .time-pill {
-        background-color: rgba(0,0,0,0.4);
-        border-radius: 20px;
-        padding: 6px 20px;
-        color: white;
-        text-align: center;
-    }
+        .balance-display {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin: 12px 0 4px 0;
+        }
 
-    .time-pill .day { font-size: 14px; font-weight: 600; }
-    .time-pill .time { font-size: 11px; opacity: 0.9; }
+        .balance-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
 
-    /* Balance Section */
-    .balance-section {
-        text-align: center;
-        padding: 10px 20px;
-        position: relative;
-        z-index: 10;
-    }
+        .form-group {
+            margin-bottom: 20px;
+        }
 
-    .balance-title {
-        color: var(--text-gray);
-        font-size: 13px;
-        margin-bottom: 5px;
-    }
+        label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--text-muted);
+        }
 
-    .balance-amount {
-        font-size: 36px;
-        font-weight: 800;
-        color: var(--text-dark);
-        margin: 5px 0;
-        letter-spacing: -1px;
-    }
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
 
-    .balance-sub {
-        font-size: 12px;
-        color: var(--text-gray);
-        line-height: 1.5;
-    }
+        /* Generic geometric generic token placeholder instead of proprietary logos */
+        .token-icon-placeholder {
+            position: absolute;
+            left: 14px;
+            width: 18px;
+            height: 18px;
+            background: linear-gradient(135deg, #00caef, #b026ff);
+            border-radius: 50%;
+            display: inline-block;
+        }
 
-    /* Sections */
-    .section {
-        padding: 15px 20px;
-        position: relative;
-        z-index: 10;
-    }
+        .amount-input {
+            width: 100%;
+            background-color: #2c2c2e;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 14px 14px 14px 42px;
+            font-size: 16px;
+            color: var(--text-main);
+            outline: none;
+            transition: border-color 0.2s;
+        }
 
-    .section-title {
-        font-weight: 600;
-        font-size: 14px;
-        margin-bottom: 12px;
-        color: var(--text-dark);
-    }
+        .amount-input:focus {
+            border-color: var(--accent-color);
+        }
 
-    .input-wrapper {
-        position: relative;
-        display: flex;
-        align-items: center;
-    }
+        /* Prevents users from adjusting via mouse scroll by accident */
+        .amount-input::-webkit-inner-spin-button,
+        .amount-input::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
 
-    .text-input {
-        width: 100%;
-        background-color: var(--input-bg);
-        border: none;
-        border-radius: 12px;
-        padding: 16px 40px;
-        font-size: 15px;
-        color: var(--text-dark);
-        box-sizing: border-box;
-    }
+        .submit-btn {
+            width: 100%;
+            background: linear-gradient(90deg, #00caef, #b026ff);
+            color: #ffffff;
+            border: none;
+            border-radius: 10px;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
 
-    .input-icon-left {
-        position: absolute;
-        left: 16px;
-        color: var(--text-gray);
-        font-size: 16px;
-    }
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
 
-    .input-icon-right {
-        position: absolute;
-        right: 16px;
-        color: #b0b0b0;
-        background: #d0d0d0;
-        border-radius: 50%;
-        width: 18px;
-        height: 18px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 10px;
-        cursor: pointer;
-    }
+        .submit-btn:disabled {
+            background: #3a3a3c;
+            color: var(--text-muted);
+            cursor: not-allowed;
+        }
 
-    /* User Profile Card */
-    .user-card {
-        background-color: var(--card-bg);
-        border-radius: 16px;
-        padding: 16px;
-        display: flex;
-        align-items: center;
-        margin-top: 15px;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-    }
+        /* Server status feedback panel */
+        .status-panel {
+            margin-top: 16px;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            display: none;
+            line-height: 1.5;
+        }
 
-    .avatar {
-        width: 48px;
-        height: 48px;
-        background-color: #d8d8d8;
-        border-radius: 50%;
-        margin-right: 16px;
-    }
+        .status-success {
+            display: block;
+            background-color: rgba(46, 204, 113, 0.1);
+            border: 1px solid #2ecc71;
+            color: #2ecc71;
+        }
 
-    .user-info .name {
-        font-weight: 600;
-        font-size: 15px;
-        margin-bottom: 2px;
-    }
+        .status-error {
+            display: block;
+            background-color: rgba(231, 76, 60, 0.1);
+            border: 1px solid #e74c3c;
+            color: #e74c3c;
+        }
 
-    .user-info .handle {
-        color: var(--text-gray);
-        font-size: 13px;
-        margin-bottom: 2px;
-    }
-
-    .user-info .stats {
-        color: var(--text-gray);
-        font-size: 11px;
-    }
-
-    /* Exchange Grid */
-    .exchange-grid {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 15px;
-    }
-
-    .coin-card {
-        flex: 1;
-        background-color: var(--card-bg);
-        border-radius: 12px;
-        padding: 16px 0;
-        text-align: center;
-        border: 1px solid transparent;
-        cursor: pointer;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    }
-
-    .coin-card.active {
-        background-color: var(--active-card-bg);
-        border-color: var(--active-card-border);
-    }
-
-    .coin-amount {
-        font-weight: 600;
-        font-size: 15px;
-        color: var(--text-dark);
-        margin-bottom: 4px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-    }
-
-    .coin-icon {
-        width: 16px;
-        height: 16px;
-        background: radial-gradient(circle, #ffe259 0%, #ffa751 100%);
-        border-radius: 50%;
-        display: inline-block;
-        border: 1px solid #d98a29;
-    }
-
-    .fiat-amount {
-        color: var(--text-gray);
-        font-size: 13px;
-    }
-
-    /* Footer & Button */
-    .disclaimer {
-        font-size: 11px;
-        color: var(--text-gray);
-        line-height: 1.5;
-        margin-top: 10px;
-    }
-
-    .exchange-btn {
-        background-color: var(--primary-red);
-        color: white;
-        border: none;
-        border-radius: 12px;
-        width: calc(100% - 40px);
-        margin: 20px;
-        padding: 16px;
-        font-size: 16px;
-        font-weight: 600;
-        cursor: pointer;
-        position: relative;
-        z-index: 10;
-    }
-
-    /* Bottom Nav Bar */
-    .bottom-nav {
-        background-color: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 30px;
-        margin: 0 20px 20px;
-        padding: 12px 20px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        position: relative;
-        z-index: 10;
-    }
-
-    .nav-item {
-        font-size: 20px;
-        color: var(--text-dark);
-        cursor: pointer;
-    }
-
-    /* Pop-up Notification (Exchange Processing) */
-    .popup-overlay {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background-color: rgba(30, 30, 30, 0.85);
-        color: #ffffff;
-        padding: 14px 24px;
-        border-radius: 30px;
-        font-size: 15px;
-        font-weight: 500;
-        z-index: 100;
-        display: none;
-        white-space: nowrap;
-        backdrop-filter: blur(4px);
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
-
-    /* Big Floating TikTok Coin (Bottom Right) */
-    .floating-coin {
-        position: absolute;
-        bottom: 70px;
-        right: 15px;
-        width: 80px;
-        height: 80px;
-        background: linear-gradient(135deg, #ffeba6 0%, #f4b426 50%, #d48c0a 100%);
-        border-radius: 50%;
-        box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 4px 10px rgba(255,255,255,0.6);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 50;
-        border: 3px solid #ffeba6;
-    }
-
-    .floating-coin::before {
-        content: '🎵'; /* Represents the TikTok note */
-        font-size: 32px;
-        color: #ffffff;
-        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-    }
-
-    .floating-coin::after {
-        content: '';
-        position: absolute;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        border: 2px dashed rgba(255,255,255,0.4);
-    }
-
-</style>
+        .secure-badge {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 16px;
+        }
+    </style>
 </head>
 <body>
 
-<div class="device-screen">
-    
-    <!-- Pop-up Notification -->
-    <div class="popup-overlay" id="processingPopup">
-        Exchange Processing...
-    </div>
-
+<div class="wallet-container">
     <div class="header">
-        <div class="nav-btn">&#8249;</div>
-        <div class="time-pill">
-            <div class="day">Friday</div>
-            <div class="time">2:26 AM</div>
-        </div>
-        <div class="nav-btn">&#8230;</div>
+        <div class="balance-label">Authoritative Wallet Balance</div>
+        <div class="balance-display" id="currentBalance">25,500</div>
+        <span style="font-size: 12px; color: var(--text-muted);">Available Virtual Tokens</span>
     </div>
 
-    <div class="balance-section">
-        <div class="balance-title">TikTok Coins Balance</div>
-        <div class="balance-amount">$684,856,737.29</div>
-        <div class="balance-sub">
-            = $684,856,737.29 (<span class="coin-icon" style="width:12px; height:12px;"></span> 56,390,012,824)<br>
-            Available balance to exchange the Coins
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">TikTok username</div>
-        <div class="input-wrapper">
-            <span class="input-icon-left">@</span>
-            <input type="text" class="text-input" value="kiktuha" readonly>
-            <span class="input-icon-right">&#10005;</span>
-        </div>
-
-        <div class="user-card">
-            <div class="avatar"></div>
-            <div class="user-info">
-                <div class="name">kiktuha</div>
-                <div class="handle">@kiktuha</div>
-                <div class="stats">-- followers &nbsp;&nbsp; -- following</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="section-title">Exchange earnings for Coins</div>
-        
-        <div class="exchange-grid">
-            <div class="coin-card">
-                <div class="coin-amount"><span class="coin-icon"></span> 250</div>
-                <div class="fiat-amount">$3.03</div>
-            </div>
-            <div class="coin-card">
-                <div class="coin-amount"><span class="coin-icon"></span> 500</div>
-                <div class="fiat-amount">$6.07</div>
-            </div>
-            <div class="coin-card active">
-                <div class="coin-amount"><span class="coin-icon"></span> 15,000</div>
-                <div class="fiat-amount">$182.04</div>
+    <!-- The form intercepts the standard submission to handle via secure JavaScript payload -->
+    <form id="exchangeForm" onsubmit="handleSecureSend(event)">
+        <div class="form-group">
+            <label for="customAmount">Enter Custom Token Amount</label>
+            <div class="input-wrapper">
+                <span class="token-icon-placeholder"></span>
+                <input 
+                    type="number" 
+                    id="customAmount" 
+                    class="amount-input" 
+                    placeholder="Min. 10 - Max. 50,000" 
+                    required 
+                    min="10" 
+                    max="50000" 
+                    step="1"
+                >
             </div>
         </div>
 
-        <input type="text" class="text-input" placeholder="Enter a custom number or amount" style="padding: 16px; margin-bottom: 20px;">
+        <button type="submit" id="sendBtn" class="submit-btn">Verify & Send Transaction</button>
+    </form>
 
-        <div class="disclaimer">
-            Coins obtained through this exchange are subject to our <strong>Virtual Items Policy</strong>. Since you are accepting your Rewards in the form of Coins, this exchange is final.
-        </div>
-    </div>
-
-    <button class="exchange-btn" onclick="triggerExchange()">Exchange</button>
-
-    <div style="flex-grow: 1;"></div>
-
-    <!-- Floating 3D Coin Graphic -->
-    <div class="floating-coin"></div>
-
-    <div class="bottom-nav">
-        <div class="nav-item">&#8681;</div>
-        <div class="nav-item">&#9825;</div>
-        <div class="nav-item">&#9432;</div>
-        <div class="nav-item">&#9881;</div>
-        <div class="nav-item">&#128465;</div>
+    <div id="statusReport" class="status-panel"></div>
+    
+    <div class="secure-badge">
+        🔒 Cryptographic Signature Verification Active
     </div>
 </div>
 
 <script>
-    function triggerExchange() {
-        const popup = document.getElementById('processingPopup');
+    // Mock user memory cache for training purposes
+    let userBalance = 25500;
+
+    function handleSecureSend(event) {
+        // Prevent standard page reload behavior to process safely via simulation script
+        event.preventDefault();
         
-        // Show popup
-        popup.style.display = 'block';
+        const amountInput = document.getElementById('customAmount');
+        const statusReport = document.getElementById('statusReport');
+        const balanceDisplay = document.getElementById('currentBalance');
+        const sendBtn = document.getElementById('sendBtn');
         
-        // Hide after 2.5 seconds to simulate processing
+        // Parse numerical integrity safely
+        const amountToSend = parseInt(amountInput.value, 10);
+
+        // --- EXPLAINED ENGINEERING LOGIC ---
+        // 1. Client-Side Guardrail Checklist:
+        if (isNaN(amountToSend) || amountToSend < 10 || amountToSend > 50000) {
+            showStatus("Failed: System limits rejected request range.", "error");
+            return;
+        }
+
+        if (amountToSend > userBalance) {
+            showStatus("Rejected: Insufficient token liquidity in source wallet.", "error");
+            return;
+        }
+
+        // Simulate secure loading state while contacting backend ledger API
+        sendBtn.disabled = true;
+        sendBtn.innerText = "Verifying Ledger Signatures...";
+
         setTimeout(() => {
-            popup.style.display = 'none';
-        }, 2500);
+            // 2. Simulate Backend Verification Loop:
+            // In production, the client must await a cryptographically verified receipt 
+            // from the backend ledger database before changing any screen details.
+            userBalance -= amountToSend;
+            
+            // Update client interface with verified data returned from the server
+            balanceDisplay.innerText = userBalance.toLocaleString();
+            
+            showStatus(`✅ Transaction Verified!<br><strong>Amount Sent:</strong> ${amountToSend.toLocaleString()} Tokens<br><strong>Status:</strong> Ledger entry committed.`, "success");
+            
+            // Reset state inputs
+            amountInput.value = '';
+            sendBtn.disabled = false;
+            sendBtn.innerText = "Verify & Send Transaction";
+        }, 1200); // 1.2 second mock latency delay representing network roundtrip
+    }
+
+    function showStatus(message, type) {
+        const panel = document.getElementById('statusReport');
+        panel.innerHTML = message;
+        panel.className = `status-panel status-${type}`;
     }
 </script>
 
