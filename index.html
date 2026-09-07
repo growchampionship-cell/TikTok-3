@@ -3,17 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TikTok Coin Exchange</title>
+<title>TikTok Coin Exchange Blueprint</title>
 <style>
     :root {
-        --bg-color: #f8f8f8;
+        --bg-color: #f2f5f8;
         --card-bg: #ffffff;
-        --input-bg: #ececec;
+        --input-bg: #e6e8ec;
         --primary-red: #ea284e;
         --text-dark: #121212;
         --text-gray: #888888;
         --active-card-bg: #fdf2f5;
         --active-card-border: #f0a8b9;
+        --grid-line: rgba(180, 190, 210, 0.4);
     }
 
     body {
@@ -27,11 +28,16 @@
         min-height: 100vh;
     }
 
+    /* Device Container with Grid Background matching the blueprint */
     .device-screen {
         width: 100%;
         max-width: 400px;
         height: 850px;
         background-color: var(--bg-color);
+        background-image: 
+            linear-gradient(var(--grid-line) 1px, transparent 1px),
+            linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+        background-size: 20px 20px;
         position: relative;
         overflow-y: auto;
         overflow-x: hidden;
@@ -47,12 +53,14 @@
         justify-content: space-between;
         align-items: center;
         padding: 40px 20px 20px;
+        position: relative;
+        z-index: 10;
     }
 
     .nav-btn {
         width: 36px;
         height: 36px;
-        background-color: rgba(0,0,0,0.4);
+        background-color: rgba(0,0,0,0.3);
         border-radius: 50%;
         display: flex;
         justify-content: center;
@@ -63,7 +71,7 @@
     }
 
     .time-pill {
-        background-color: rgba(0,0,0,0.5);
+        background-color: rgba(0,0,0,0.4);
         border-radius: 20px;
         padding: 6px 20px;
         color: white;
@@ -71,12 +79,14 @@
     }
 
     .time-pill .day { font-size: 14px; font-weight: 600; }
-    .time-pill .time { font-size: 11px; opacity: 0.8; }
+    .time-pill .time { font-size: 11px; opacity: 0.9; }
 
     /* Balance Section */
     .balance-section {
         text-align: center;
         padding: 10px 20px;
+        position: relative;
+        z-index: 10;
     }
 
     .balance-title {
@@ -99,9 +109,11 @@
         line-height: 1.5;
     }
 
-    /* Form & Sections */
+    /* Sections */
     .section {
         padding: 15px 20px;
+        position: relative;
+        z-index: 10;
     }
 
     .section-title {
@@ -139,7 +151,7 @@
         position: absolute;
         right: 16px;
         color: #b0b0b0;
-        background: #e0e0e0;
+        background: #d0d0d0;
         border-radius: 50%;
         width: 18px;
         height: 18px;
@@ -158,12 +170,13 @@
         display: flex;
         align-items: center;
         margin-top: 15px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.02);
     }
 
     .avatar {
         width: 48px;
         height: 48px;
-        background-color: #e0e0e0;
+        background-color: #d8d8d8;
         border-radius: 50%;
         margin-right: 16px;
     }
@@ -200,6 +213,7 @@
         text-align: center;
         border: 1px solid transparent;
         cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
     }
 
     .coin-card.active {
@@ -212,6 +226,19 @@
         font-size: 15px;
         color: var(--text-dark);
         margin-bottom: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+    }
+
+    .coin-icon {
+        width: 16px;
+        height: 16px;
+        background: radial-gradient(circle, #ffe259 0%, #ffa751 100%);
+        border-radius: 50%;
+        display: inline-block;
+        border: 1px solid #d98a29;
     }
 
     .fiat-amount {
@@ -238,11 +265,13 @@
         font-size: 16px;
         font-weight: 600;
         cursor: pointer;
+        position: relative;
+        z-index: 10;
     }
 
     /* Bottom Nav Bar */
     .bottom-nav {
-        background-color: rgba(255, 255, 255, 0.9);
+        background-color: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(10px);
         border-radius: 30px;
         margin: 0 20px 20px;
@@ -251,6 +280,8 @@
         justify-content: space-between;
         align-items: center;
         box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        position: relative;
+        z-index: 10;
     }
 
     .nav-item {
@@ -258,11 +289,70 @@
         color: var(--text-dark);
         cursor: pointer;
     }
+
+    /* Pop-up Notification (Exchange Processing) */
+    .popup-overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(30, 30, 30, 0.85);
+        color: #ffffff;
+        padding: 14px 24px;
+        border-radius: 30px;
+        font-size: 15px;
+        font-weight: 500;
+        z-index: 100;
+        display: none;
+        white-space: nowrap;
+        backdrop-filter: blur(4px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    /* Big Floating TikTok Coin (Bottom Right) */
+    .floating-coin {
+        position: absolute;
+        bottom: 70px;
+        right: 15px;
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #ffeba6 0%, #f4b426 50%, #d48c0a 100%);
+        border-radius: 50%;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.4), inset 0 4px 10px rgba(255,255,255,0.6);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 50;
+        border: 3px solid #ffeba6;
+    }
+
+    .floating-coin::before {
+        content: '🎵'; /* Represents the TikTok note */
+        font-size: 32px;
+        color: #ffffff;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .floating-coin::after {
+        content: '';
+        position: absolute;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: 2px dashed rgba(255,255,255,0.4);
+    }
+
 </style>
 </head>
 <body>
 
 <div class="device-screen">
+    
+    <!-- Pop-up Notification -->
+    <div class="popup-overlay" id="processingPopup">
+        Exchange Processing...
+    </div>
+
     <div class="header">
         <div class="nav-btn">&#8249;</div>
         <div class="time-pill">
@@ -276,7 +366,7 @@
         <div class="balance-title">TikTok Coins Balance</div>
         <div class="balance-amount">$684,856,737.29</div>
         <div class="balance-sub">
-            = $684,856,737.29 (🪙 56,390,012,824)<br>
+            = $684,856,737.29 (<span class="coin-icon" style="width:12px; height:12px;"></span> 56,390,012,824)<br>
             Available balance to exchange the Coins
         </div>
     </div>
@@ -304,15 +394,15 @@
         
         <div class="exchange-grid">
             <div class="coin-card">
-                <div class="coin-amount">🪙 250</div>
+                <div class="coin-amount"><span class="coin-icon"></span> 250</div>
                 <div class="fiat-amount">$3.03</div>
             </div>
             <div class="coin-card">
-                <div class="coin-amount">🪙 500</div>
+                <div class="coin-amount"><span class="coin-icon"></span> 500</div>
                 <div class="fiat-amount">$6.07</div>
             </div>
             <div class="coin-card active">
-                <div class="coin-amount">🪙 15,000</div>
+                <div class="coin-amount"><span class="coin-icon"></span> 15,000</div>
                 <div class="fiat-amount">$182.04</div>
             </div>
         </div>
@@ -324,9 +414,12 @@
         </div>
     </div>
 
-    <button class="exchange-btn">Exchange</button>
+    <button class="exchange-btn" onclick="triggerExchange()">Exchange</button>
 
     <div style="flex-grow: 1;"></div>
+
+    <!-- Floating 3D Coin Graphic -->
+    <div class="floating-coin"></div>
 
     <div class="bottom-nav">
         <div class="nav-item">&#8681;</div>
@@ -336,6 +429,20 @@
         <div class="nav-item">&#128465;</div>
     </div>
 </div>
+
+<script>
+    function triggerExchange() {
+        const popup = document.getElementById('processingPopup');
+        
+        // Show popup
+        popup.style.display = 'block';
+        
+        // Hide after 2.5 seconds to simulate processing
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 2500);
+    }
+</script>
 
 </body>
 </html>
