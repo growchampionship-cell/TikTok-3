@@ -3,189 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Account Summary Practice Layout</title>
+    <title>Earnings Dashboard</title>
     <style>
-        :root {
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-main: #212529;
-            --text-muted: #6c757d;
-            --border-color: #dee2e6;
-            --primary-accent: #0d6efd;
-            --primary-hover: #0b5ed7;
-        }
-
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 20px;
+            background-color: #f0f0f0;
             display: flex;
             justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
         }
 
-        .container {
+        .app-container {
             width: 100%;
-            max-width: 450px;
-            background: var(--card-bg);
-            border-radius: 16px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            padding: 24px;
+            max-width: 400px;
+            background-color: #fff;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            padding: 20px;
             box-sizing: border-box;
+            position: relative;
         }
 
         .header {
             text-align: center;
-            margin-bottom: 24px;
+            margin-bottom: 20px;
         }
 
-        .header h1 {
-            font-size: 1.2rem;
-            margin: 0 0 8px 0;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
+        .balance-title {
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
         }
 
-        .balance {
-            font-size: 2.2rem;
-            font-weight: 700;
-            margin: 0 0 4px 0;
+        .balance-amount {
+            font-size: 32px;
+            font-weight: 800;
+            color: #000;
+            margin: 5px 0;
         }
 
-        .sub-balance {
-            font-size: 0.9rem;
-            color: var(--text-muted);
-            margin: 0;
+        .balance-subtext {
+            color: #888;
+            font-size: 12px;
         }
 
-        .divider {
-            border: 0;
-            height: 1px;
-            background: var(--border-color);
-            margin: 24px 0;
+        .input-group {
+            margin-bottom: 20px;
         }
 
-        .section-title {
-            font-size: 1rem;
+        label {
+            display: block;
+            font-size: 14px;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 8px;
+            color: #333;
         }
 
-        .option-grid {
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            background-color: #fafafa;
+        }
+
+        .input-wrapper span {
+            color: #888;
+            margin-right: 8px;
+        }
+
+        input[type="text"] {
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 16px;
+            width: 100%;
+            color: #333;
+        }
+
+        .options-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 24px;
+            gap: 10px;
+            margin-bottom: 20px;
         }
 
         .option-card {
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 12px;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 15px 5px;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
-        .option-card:hover {
-            border-color: var(--primary-accent);
-            background-color: rgba(13, 110, 253, 0.02);
+        .option-card:hover, .option-card.active {
+            border-color: #fe2c55;
+            background-color: #fff0f2;
+        }
+
+        .option-coins {
+            font-weight: 700;
+            color: #333;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 5px;
         }
 
         .option-value {
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 4px;
+            color: #666;
+            font-size: 12px;
         }
 
-        .option-cost {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .input-group {
-            margin-bottom: 24px;
-        }
-
-        .input-label {
-            display: block;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 8px;
-        }
-
-        .text-input {
+        .btn-primary {
             width: 100%;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 1rem;
-            box-sizing: border-box;
-        }
-
-        .text-input:focus {
-            outline: none;
-            border-color: var(--primary-accent);
-        }
-
-        .action-button {
-            width: 100%;
-            padding: 14px;
-            background-color: var(--primary-accent);
+            padding: 15px;
+            background-color: #fe2c55;
             color: white;
             border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 700;
             cursor: pointer;
-            transition: background-color 0.2s ease;
         }
 
-        .action-button:hover {
-            background-color: var(--primary-hover);
+        .btn-primary:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* Verification Modal */
+        .modal {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            width: 80%;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Header / Summary Section -->
-        <div class="header">
-            <h1>Account Balance</h1>
-            <p class="balance">$150.00</p>
-            <p class="sub-balance">Available Credits: 1,500</p>
-        </div>
-
-        <hr class="divider">
-
-        <!-- Selection Section -->
-        <div class="section-title">Select Tier</div>
-        <div class="option-grid">
-            <div class="option-card">
-                <div class="option-value">100</div>
-                <div class="option-cost">$1.00</div>
-            </div>
-            <div class="option-card">
-                <div class="option-value">500</div>
-                <div class="option-cost">$5.00</div>
-            </div>
-            <div class="option-card">
-                <div class="option-value">1,000</div>
-                <div class="option-cost">$10.00</div>
-            </div>
-        </div>
-
-        <!-- Input Section -->
-        <div class="input-group">
-            <label class="input-label" for="custom-amount">Custom Allocation</label>
-            <input class="text-input" type="number" id="custom-amount" placeholder="Enter custom amount">
-        </div>
-
-        <!-- Action Section -->
-        <button class="action-button">Process Order</button>
+<div class="app-container">
+    <!-- Balance Header -->
+    <div class="header">
+        <div class="balance-title">Available Balance</div>
+        <div class="balance-amount">$1,254.35</div>
+        <div class="balance-subtext">= 125,435 Coins</div>
     </div>
+
+    <!-- Username Input -->
+    <div class="input-group">
+        <label>Account Username</label>
+        <div class="input-wrapper">
+            <span>@</span>
+            <input type="text" id="username" placeholder="Enter username" oninput="checkInput()">
+        </div>
+    </div>
+
+    <!-- Exchange Options -->
+    <div class="input-group">
+        <label>Exchange Amount</label>
+        <div class="options-grid">
+            <div class="option-card" onclick="selectOption(this)">
+                <span class="option-coins">250</span>
+                <span class="option-value">$3.03</span>
+            </div>
+            <div class="option-card" onclick="selectOption(this)">
+                <span class="option-coins">500</span>
+                <span class="option-value">$6.07</span>
+            </div>
+            <div class="option-card" onclick="selectOption(this)">
+                <span class="option-coins">15,000</span>
+                <span class="option-value">$182.04</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Action Button -->
+    <button class="btn-primary" id="exchangeBtn" disabled onclick="showModal()">Exchange</button>
+</div>
+
+<!-- Verification Modal -->
+<div class="modal" id="verificationModal">
+    <div class="modal-content">
+        <h3>Verification Required</h3>
+        <p>To secure your account, we need to send a verification code to your registered email ending in <strong>••••42</strong>.</p>
+        <button class="btn-primary" onclick="alert('Code sent! (This is a simulation)')" style="margin-top:10px;">Send Code</button>
+        <button style="margin-top:10px; background:none; border:none; color:#888; text-decoration:underline; cursor:pointer;" onclick="closeModal()">Cancel</button>
+    </div>
+</div>
+
+<script>
+    // Enable button when username is entered
+    function checkInput() {
+        const val = document.getElementById('username').value;
+        const btn = document.getElementById('exchangeBtn');
+        if (val.length > 0) {
+            btn.disabled = false;
+        } else {
+            btn.disabled = true;
+        }
+    }
+
+    // Highlight selected option
+    function selectOption(element) {
+        let cards = document.querySelectorAll('.option-card');
+        cards.forEach(card => card.classList.remove('active'));
+        element.classList.add('active');
+    }
+
+    // Show verification modal
+    function showModal() {
+        document.getElementById('verificationModal').style.display = 'flex';
+    }
+
+    // Close modal
+    function closeModal() {
+        document.getElementById('verificationModal').style.display = 'none';
+    }
+</script>
 
 </body>
 </html>
